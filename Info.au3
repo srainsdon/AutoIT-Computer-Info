@@ -104,3 +104,62 @@ For $i = 1 To $OSs[0][0] Step 1
 Next
 #comments-end
 #endregion
+
+
+#region -- Network Cards
+Dim $NetworkCards
+
+_ComputerGetNetworkCards($NetworkCards)
+If @error Then
+	$error = @error
+	$extended = @extended
+	Switch $extended
+		Case 1
+			_ErrorMsg($ERR_NO_INFO)
+		Case 2
+			_ErrorMsg($ERR_NOT_OBJ)
+	EndSwitch
+EndIf
+;#comments-start
+For $i = 1 To $NetworkCards[0][0] Step 1
+ If $NetworkCards[$i][2] <> 0 then
+	  ContinueLoop
+   EndIf
+	MsgBox(0, "Test _ComputerGetNetworkCards", "Name: " & $NetworkCards[$i][0] & @CRLF & _
+			"Adapter Type: " & $NetworkCards[$i][1] & @CRLF & _
+			"Adapter Type ID: " & $NetworkCards[$i][2] & @CRLF & _
+			"Auto Sense: " & $NetworkCards[$i][3] & @CRLF & _
+			"Description: " & $NetworkCards[$i][4] & @CRLF & _
+			"Availability: " & $NetworkCards[$i][5] & @CRLF & _
+			"Config Manager Error Code: " & $NetworkCards[$i][6] & @CRLF & _
+			"Config Manager User Config: " & $NetworkCards[$i][7] & @CRLF & _
+			"Creation Class Name: " & $NetworkCards[$i][8] & @CRLF & _
+			"Device ID: " & $NetworkCards[$i][9] & @CRLF & _
+			"Error Cleared: " & $NetworkCards[$i][10] & @CRLF & _
+			"Error Description: " & $NetworkCards[$i][11] & @CRLF & _
+			"Index: " & $NetworkCards[$i][12] & @CRLF & _
+			"Installed: " & $NetworkCards[$i][13] & @CRLF & _
+			"Last Error Code: " & $NetworkCards[$i][14] & @CRLF & _
+			"MAC Address: " & $NetworkCards[$i][15] & @CRLF & _
+			"Manufacturer: " & $NetworkCards[$i][16] & @CRLF & _
+			"Max Number Controlled: " & $NetworkCards[$i][17] & @CRLF & _
+			"Max Speed: " & $NetworkCards[$i][18] & @CRLF & _
+			"Net Connection ID: " & $NetworkCards[$i][19] & @CRLF & _
+			"Net Connection Status: " & $NetworkCards[$i][20] & @CRLF & _
+			"Network Addresses: " & $NetworkCards[$i][21] & @CRLF & _
+			"Permanent Address: " & $NetworkCards[$i][22] & @CRLF & _
+			"PNP Device ID: " & $NetworkCards[$i][23] & @CRLF & _
+			"Power Management Capabilities: " & $NetworkCards[$i][24] & @CRLF & _
+			"Power Management Supported: " & $NetworkCards[$i][25] & @CRLF & _
+			"Product Name: " & $NetworkCards[$i][26] & @CRLF & _
+			"Service Name: " & $NetworkCards[$i][27] & @CRLF & _
+			"Speed: " & $NetworkCards[$i][28] & @CRLF & _
+			"Status: " & $NetworkCards[$i][29] & @CRLF & _
+			"Status Info: " & $NetworkCards[$i][30] & @CRLF & _
+			"System Creation Class Name: " & $NetworkCards[$i][31] & @CRLF & _
+			"System Name: " & $NetworkCards[$i][32] & @CRLF & _
+			"Time Of Last Reset: " & $NetworkCards[$i][33])
+		 Next
+		 ;#comments-end
+#endregion
+

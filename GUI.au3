@@ -5,7 +5,7 @@
 #include <WindowsConstants.au3>
 #include <StaticConstants.au3>
 #region GLOBAL VARIABLES
-Global $iW = 700, $iH = 400, $iT = 52, $iB = 52, $iLeftWidth = 150, $iGap = 10, $hMainGUI
+Global $iW = 700, $iH = 800, $iT = 52, $iB = 52, $iLeftWidth = 150, $iGap = 10, $hMainGUI
 #endregion GLOBAL VARIABLES
 
 _MainGui()
@@ -73,22 +73,32 @@ GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCK
 
 _AddControlsToPanel($aPanel[2])
 
-
-GUICtrlCreateEdit("", 10, 37, $iW - $iLeftWidth + 2 - 20 - 5, $iH - $iT - $iB - 40, BitOR($ES_AUTOVSCROLL, $ES_NOHIDESEL, $ES_WANTRETURN, $WS_VSCROLL), $WS_EX_STATICEDGE)
-Local $sTestTxt = ""
-;For $i = 1 To 10
-For $i = 1 To $OSs[0][0] Step 1
-$sTestTxt &= "Computer Name: " & @TAB & @TAB & @ComputerName & @CRLF & _
-   "Last Boot Up Time: " & @TAB & @TAB & $OSs[$i][25] & @CRLF & _
-   "OS: " & @TAB & @TAB & @TAB & $OsName & @CRLF
-;$sTestTxt &= @TAB & "Sed vel ante magna. Curabitur porttitor ante in tellus bibendum non tristique diam volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In tellus lectus, ultrices in tempus eget, sollicitudin quis eros. Curabitur at arcu bibendum massa feugiat euismod at a felis. Nunc molestie, enim non ornare tincidunt, ipsum nisi tempus sapien, quis elementum elit velit ut neque. Suspendisse eu adipiscing risus. Nam tempor odio ut elit auctor rhoncus. Etiam viverra elit id felis feugiat pellentesque pretium porttitor dui. Vivamus eu quam non ante suscipit vehicula a nec eros. Phasellus congue massa sed libero interdum ullamcorper. Quisque fringilla massa ut lorem fringilla pulvinar eget ullamcorper eros. Praesent faucibus, erat at consequat tempus, nulla erat sodales mi, eget sagittis nibh erat nec nunc. Phasellus risus nibh, porta viverra pretium nec, vehicula eget nisi." & @CRLF
-;$sTestTxt &= @TAB & "Sed vel neque vel urna elementum accumsan feugiat quis mauris. Sed mi nisl, consequat dapibus molestie ac, rutrum ut elit. Praesent sed risus sem. Mauris rutrum blandit magna nec tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse consequat iaculis odio nec cursus. Duis varius tincidunt ligula ac ultricies. Ut eget magna in nulla vulputate dapibus ut vel sem. Integer ac tempor risus." & @CRLF
-;$sTestTxt &= @TAB & "Maecenas molestie semper turpis, id tristique nibh pharetra eget. Aliquam erat volutpat. In egestas, lorem quis varius vestibulum, enim diam porta lorem, quis dictum arcu ante a diam. Nullam vel nisi mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam ut leo purus, eget vulputate augue. Fusce et est sagittis felis accumsan sollicitudin eget a lectus. Cras sapien sapien, rutrum eu tempor non, tempor nec velit. Vivamus interdum adipiscing felis in malesuada. Fusce quis purus est, eget molestie turpis. In hac habitasse platea dictumst." & @CRLF
-;$sTestTxt &= @TAB & "Aenean eleifend risus vitae lorem laoreet facilisis. Suspendisse ac urna quam, vel rutrum sem. Sed bibendum porta tellus malesuada scelerisque. Vestibulum at ligula sed nulla sollicitudin tincidunt. Pellentesque mi magna, vulputate et aliquam a, auctor et nunc. Phasellus feugiat fringilla accumsan. Donec ultrices, elit id dapibus auctor, nunc odio viverra lorem, non commodo mi libero a libero. Cras vitae felis venenatis augue laoreet tincidunt scelerisque id odio. Proin lorem purus, molestie feugiat pretium nec, ornare aliquam turpis. "
+Local $iWidth = 150
+Local $iStartTop = 28
+Local $iHight = 17
+Local $iStartCol = 10
+Local $iTop = $iStartTop
+;MsgBox(0,"test", $NetworkCards[0][0])
+For $i = 1 To $NetworkCards[0][0] Step 1 ;"Network Addresses: " & $NetworkCards[$i][21]
+   If $NetworkCards[$i][2] <> 0 then
+	  ContinueLoop
+   EndIf
+   GUICtrlCreateLabel("Adapter Type", $iStartCol, $iTop, $iWidth, $iHight)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   GUICtrlCreateLabel($NetworkCards[$i][1], $iStartCol+$iWidth, $iTop, $iWidth, 17)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   $iTop += 17
+   GUICtrlCreateLabel("MAC Address", $iStartCol, $iTop, $iWidth, $iHight)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   GUICtrlCreateLabel($NetworkCards[$i][15], $iStartCol+$iWidth, $iTop, $iWidth, 17)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   $iTop += 17
+   GUICtrlCreateLabel("IP Address", $iStartCol, $iTop, $iWidth, $iHight)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   GUICtrlCreateLabel($NetworkCards[$i][29], $iStartCol+$iWidth, $iTop, $iWidth, 17)
+   GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+   $iTop += 17
 Next
-GUICtrlSetData(-1, $sTestTxt)
-GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKBOTTOM)
-
 _AddControlsToPanel($aPanel[3])
 GUICtrlCreateList("", 8, 37, 121, 93, -1, 0)
 GUICtrlSetData(-1, "dfgdfg|ertert|kljlkj|poipoi|qweqwe")
